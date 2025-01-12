@@ -348,13 +348,15 @@ function openTreasureChest() {
     const chance = Math.floor(Math.random() * 100) + 1;
 
     if (chance <= 50) {
-        gold += 15;
+        const goldGained = Math.floor(Math.random() * 25) + 1;
+        gold += goldGained;
         goldText.innerText = gold;
-        text.innerHTML = "You find gold!";
+        text.innerHTML = "You find " + goldGained + " gold!";
     } else if (chance <80) {
-        health -= 15;
+        const healthGained = Math.floor(Math.random() * 25) + 1;
+        health -= healthGained;
         healthText.innerText = health;
-        text.innerHTML = "It was a trap! You lose health.";
+        text.innerHTML = "It was a trap! You lose " + healthGained + " health.";
     } else {
         fightMimic();
     }
