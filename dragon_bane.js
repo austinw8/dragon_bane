@@ -113,7 +113,13 @@ const monsters = [
       level: 20,
       health: 300,
       img: "https://i.ibb.co/HDKhnN8/10.jpg"
-    }
+    },
+    {
+        name: "Mimic",
+        level: 2,
+        health: 15,
+        img: "https://i.ibb.co/zH2Gfsx/12.jpg"
+      }
   ];
 
 const locations = [
@@ -126,14 +132,14 @@ const locations = [
   },
   {
     name: "store",
-    "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Go to town square"],
+    "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Return to town square"],
     "button functions": [buyHealth, buyWeapon, goTown],
     text: "You enter the store.",
     img: "https://www.dndspeak.com/wp-content/uploads/2021/04/Shop-1.jpg"
   },
   {
     name: "cave",
-    "button text": ["Fight monster", "Find treasure chest", "Exit cave"],
+    "button text": ["Fight monster", "Find treasure chest", "Return to town square"],
     "button functions": [fightRandomMonster, openTreasureChest, goTown],
     text: "You enter the cave. What would you like to do?",
     img: "https://t3.ftcdn.net/jpg/06/41/30/92/360_F_641309220_IfhzYNjdPVrVl4WIMSfxX2p0Yg4Jfnnn.jpg"
@@ -141,13 +147,13 @@ const locations = [
   {
     name: "fight",
     "button text": ["Attack", "Dodge", "Run"],
-    "button functions": [attack, dodge, goTown],
+    "button functions": [attack, dodge, goCave],
     text: "You are fighting a monster."
   },
   {
     name: "kill monster",
-    "button text": ["Go to town square", "Go to town square", "Go to town square"],
-    "button functions": [goTown, goTown, easterEgg],
+    "button text": ["Continue exploring cave", "Return to town square"],
+    "button functions": [goCave, goTown],
     text: "You've defeated the monster! You gain experience points and gold."
   },
   {
@@ -179,16 +185,22 @@ function update(location) {
   monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
-  button3.innerText = location["button text"][2];
+  if (location["button text"].length < 3) {
+    button3.style.display = "none"; // Hide the third button
+  } else {
+    button3.style.display = "inline-block"; // Show the third button
+    button3.innerText = location["button text"][2];
+    button3.onclick = location["button functions"][2];
+  }
   button1.onclick = location["button functions"][0];
   button2.onclick = location["button functions"][1];
-  button3.onclick = location["button functions"][2];
   text.innerHTML = location.text;
 }
 
 function goTown() {
   update(locations[0]);
   locationImage.src = locations[0].img;
+  locationImage.style.display = "block";
 }
 
 function goStore() {
@@ -199,6 +211,7 @@ function goStore() {
 function goCave() {
   update(locations[2]);
   locationImage.src = locations[2].img;
+  locationImage.style.display = "block";
 }
 
 function buyHealth() {
@@ -245,28 +258,15 @@ function sellWeapon() {
   }
 }
 
-// function fightSlime() {
-//   fighting = 0;
-//   goFight();
-// }
-
 function fightMimic() {
-    monsterStats.style.display = "block";
-    button1.innerText = "Attack";
-    button2.innerText = "Dodge";
-    button3.innerText = "Run";
-    button1.onclick = attack;
-    button2.onclick = dodge;
-    button3.onclick = goTown;
-    text.innerHTML = "Oh no! It was a mimic disguised as a treasure chest!";
-    monsterHealth = 15;
-    monsterName.innerText = "Mimic";
-    monsterHealthText.innerText = monsterHealth;
-    monsterImage.src = "https://i.ibb.co/zH2Gfsx/12.jpg";
+    fighting = 14;
+    goFight();
 }
 
 function fightRandomMonster() {
-  const nonDragonMonsters = monsters.filter(monster => monster.name !== "Dragon");
+  const nonDragonMonsters = monsters.filter(
+    monster => monster.name !== "Dragon" && monster.name !== "Mimic"
+);
   const randomIndex = Math.floor(Math.random() * nonDragonMonsters.length);
   fighting = monsters.indexOf(nonDragonMonsters[randomIndex]);
   goFight();
@@ -279,8 +279,14 @@ function fightDragon() {
 
 function goFight() {
   update(locations[3]);
-  monsterHealth = monsters[fighting].health;
   monsterStats.style.display = "block";
+  locationImage.style.display = "none";
+  if (fighting === 14) {
+    text.innerHTML = "Oh no! It was a mimic disguised as a treasure chest!";
+} else {
+    text.innerHTML = "You are fighting a monster.";
+}
+  monsterHealth = monsters[fighting].health;
   monsterName.innerText = monsters[fighting].name;
   monsterHealthText.innerText = monsterHealth;
   monsterImage.src = monsters[fighting].img;
@@ -335,7 +341,7 @@ function defeatMonster() {
   xpText.innerText = xp;
   update(locations[4]);
   text.innerHTML += `<br><strong>XP:</strong> ${xpGained} &nbsp; <strong>Gold:</strong> ${goldGained}`;
-  // return {goldGained, xpGained};
+  locationImage.style.display = "none";
 }
 
 function openTreasureChest() {
@@ -352,10 +358,21 @@ function openTreasureChest() {
     } else {
         fightMimic();
     }
+
+    if (health <= 0) {
+        lose();
+      } else if (monsterHealth <= 0) {
+        if (fighting === 13) {
+          winGame();
+        } else {
+          defeatMonster();
+        }
+      }
 }
 
 function lose() {
   update(locations[5]);
+  locationImage.style.display = "none";
 }
 
 function winGame() {
