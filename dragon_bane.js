@@ -176,6 +176,79 @@ const locations = [
   }
 ];
 
+const caveLocations = [
+    {
+      name: "cave1",
+      "button text": ["Go left", "Go straight", "Go right"],
+      "button functions": [caveNav(2), caveNav(4), caveNav(3)],
+      text: "The cave entrance is dimly lit, with three dark tunnels ahead",
+    //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+    },
+    {
+        name: "cave2",
+        "button text": ["Go left", "Go straight", "Go right"],
+        "button functions": [caveNav(T), caveNav(M), caveNav(6)],
+        text: "The walls are damp, and the air feels colder. A faint glimmer can be seen to the left.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "cave3",
+        "button text": ["Go left", "Go straight", "Go right"],
+        "button functions": [caveNav(8), caveNav(10), caveNav(M)],
+        text: "The tunnel widens slightly, with footprints visible on the ground.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "cave4",
+        "button text": ["Go left", "Go straight", "Go right"],
+        "button functions": [caveNav(11), caveNav(13), caveNav(T)],
+        text: "Stalactites hang low, and the floor is uneven. You hear faint dripping sounds.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "cave6",
+        "button text": ["Go left", "Go straight", "Go right"],
+        "button functions": [caveNav(M), caveNav(15), caveNav(T)],
+        text: "The tunnel is narrow, with loose rocks underfoot.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "cave8",
+        "button text": ["Go left", "Go straight", "Go right"],
+        "button functions": [caveNav(1), caveNav(M), caveNav(T)],
+        text: "The tunnel is narrow, with loose rocks underfoot.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "cave10",
+        "button text": ["Go left", "Go straight", "Go right"],
+        "button functions": [caveNav(6), caveNav(13), caveNav(T)],
+        text: "The walls are covered in glowing moss, illuminating your way.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "cave11",
+        "button text": ["Go left", "Go straight", "Go right"],
+        "button functions": [caveNav(T), caveNav(13), caveNav(6)],
+        text: "Strange carvings depict an ancient story of dragons and treasure.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "cave13",
+        "button text": ["Re-enter cave", "Return to town", "Return to town"],
+        "button functions": [caveNav(11), goTown, goTown],
+        text: "You see the light of day and leave the cave safely.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "cave15",
+        "button text": ["Re-enter cave", "Return to town", "Return to town"],
+        "button functions": [caveNav(6), goTown, goTown],
+        text: "You see the light of day and leave the cave safely.",
+      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      }
+]
+
 // initialize buttons
 button1.onclick = goStore;
 button2.onclick = goCave;
