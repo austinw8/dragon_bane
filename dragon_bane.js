@@ -122,7 +122,7 @@ const locations = [
     "button text": ["Go to store", "Visit cave", "Fight dragon"],
     "button functions": [goStore, goCave, fightDragon],
     text: "You are in the town square. You see a sign that says \"Store\".",
-    img: "https://d1vzi28wh99zvq.cloudfront.net/images/20766/_product_images/447391/Marketplace_MARKETING.jpg"
+    img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
   },
   {
     name: "store",
