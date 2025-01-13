@@ -147,13 +147,13 @@ const locations = [
   {
     name: "fight",
     "button text": ["Attack", "Dodge", "Run"],
-    "button functions": [attack, dodge, goCave],
+    "button functions": [attack, dodge, () => caveNav(Math.floor(Math.random() * 7) + 1)],
     text: "You are fighting a monster."
   },
   {
     name: "kill monster",
     "button text": ["Continue exploring cave", "Return to town square"],
-    "button functions": [goCave, goTown],
+    "button functions": [() => caveNav(Math.floor(Math.random() * 7) + 1), goTown],
     text: "You've defeated the monster! You gain experience points and gold."
   },
   {
@@ -182,77 +182,70 @@ const caveLocations = [
       "button text": ["Go left", "Go straight", "Go right"],
       "button functions": [() => caveNav(1), () => caveNav(3), () => caveNav(2)],
       text: "The cave entrance is dimly lit, with three dark tunnels ahead",
-      img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      img: "https://i.ibb.co/wzx7KdZ/Cave1.jpg"
     },
     {
         name: "cave2",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [() => caveNav(10), fightRandomMonster, () => caveNav(4)],
+        "button functions": [() => caveNav(9), fightRandomMonster, () => caveNav(4)],
         text: "The walls are damp, and the air feels colder. A faint glimmer can be seen to the left.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/6DB6TnK/Cave2.jpg"
       },
       {
         name: "cave3",
         "button text": ["Go left", "Go straight", "Go right"],
         "button functions": [() => caveNav(5), () => caveNav(6), fightRandomMonster],
         text: "The tunnel widens slightly, with footprints visible on the ground.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/HhmkDM9/Cave-Misc1.jpg"
       },
       {
         name: "cave4",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [() => caveNav(7), () => caveNav(8), () => caveNav(10)],
+        "button functions": [() => caveNav(7), () => caveNav(8), () => caveNav(9)],
         text: "Stalactites hang low, and the floor is uneven. You hear faint dripping sounds.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/kQPBHzF/Cave4.jpg"
       },
       {
         name: "cave6",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [fightRandomMonster, () => caveNav(9), () => caveNav(10)],
+        "button functions": [fightRandomMonster, () => caveNav(8), () => caveNav(9)],
         text: "The tunnel is narrow, with loose rocks underfoot.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/TrzFHxS/Cave-Misc2.jpg"
       },
       {
         name: "cave8",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [() => caveNav(0), fightRandomMonster, () => caveNav(10)],
+        "button functions": [() => caveNav(0), fightRandomMonster, () => caveNav(9)],
         text: "The tunnel is narrow, with loose rocks underfoot.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/jMvjF8p/Cave-Misc3.jpg"
       },
       {
         name: "cave10",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [() => caveNav(4), () => caveNav(8), () => caveNav(10)],
+        "button functions": [() => caveNav(4), () => caveNav(8), () => caveNav(9)],
         text: "The walls are covered in glowing moss, illuminating your way.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/kgCNqW6/Cave10.jpg"
       },
       {
         name: "cave11",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [() => caveNav(10), () => caveNav(8), () => caveNav(4)],
+        "button functions": [() => caveNav(9), () => caveNav(8), () => caveNav(4)],
         text: "Strange carvings depict an ancient story of dragons and treasure.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/86gdwF2/Cave11.jpg"
       },
       {
-        name: "cave13",
+        name: "caveExit",
         "button text": ["Re-enter cave", "Return to town", "Return to town"],
-        "button functions": [() => caveNav(7), goTown, goTown],
+        "button functions": [() => caveNav(Math.floor(Math.random() * 7) + 1), goTown, goTown],
         text: "You see the light of day and leave the cave safely.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
-      },
-      {
-        name: "cave15",
-        "button text": ["Re-enter cave", "Return to town", "Return to town"],
-        "button functions": [() => caveNav(4), goTown, goTown],
-        text: "You see the light of day and leave the cave safely.",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/mXXkTpK/24.jpg"
       },
       {
         name: "treasure",
-        "button text": ["Open chest", "Duh, open chest", "Continue Exploring"],
-        "button functions": [openTreasureChest, openTreasureChest, () => caveNav(8)],
+        "button text": ["Open chest", "Turn back", "Continue Exploring"],
+        "button functions": [openTreasureChest, () => caveNav(Math.floor(Math.random() * 7) + 1), () => caveNav(Math.floor(Math.random() * 7) + 1)],
         text: "You've found a treasure chest! What would you like to do?",
-        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://i.ibb.co/Qk37z85/25.jpg"
       }
 ];
 
