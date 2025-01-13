@@ -180,79 +180,92 @@ const caveLocations = [
     {
       name: "cave1",
       "button text": ["Go left", "Go straight", "Go right"],
-      "button functions": [caveNav(2), caveNav(4), caveNav(3)],
+      "button functions": [() => caveNav(1), () => caveNav(3), () => caveNav(2)],
       text: "The cave entrance is dimly lit, with three dark tunnels ahead",
-    //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
     },
     {
         name: "cave2",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [caveNav(T), caveNav(M), caveNav(6)],
+        "button functions": [() => caveNav(10), fightRandomMonster, () => caveNav(4)],
         text: "The walls are damp, and the air feels colder. A faint glimmer can be seen to the left.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       },
       {
         name: "cave3",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [caveNav(8), caveNav(10), caveNav(M)],
+        "button functions": [() => caveNav(5), () => caveNav(6), fightRandomMonster],
         text: "The tunnel widens slightly, with footprints visible on the ground.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       },
       {
         name: "cave4",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [caveNav(11), caveNav(13), caveNav(T)],
+        "button functions": [() => caveNav(7), () => caveNav(8), () => caveNav(10)],
         text: "Stalactites hang low, and the floor is uneven. You hear faint dripping sounds.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       },
       {
         name: "cave6",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [caveNav(M), caveNav(15), caveNav(T)],
+        "button functions": [fightRandomMonster, () => caveNav(9), () => caveNav(10)],
         text: "The tunnel is narrow, with loose rocks underfoot.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       },
       {
         name: "cave8",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [caveNav(1), caveNav(M), caveNav(T)],
+        "button functions": [() => caveNav(0), fightRandomMonster, () => caveNav(10)],
         text: "The tunnel is narrow, with loose rocks underfoot.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       },
       {
         name: "cave10",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [caveNav(6), caveNav(13), caveNav(T)],
+        "button functions": [() => caveNav(4), () => caveNav(8), () => caveNav(10)],
         text: "The walls are covered in glowing moss, illuminating your way.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       },
       {
         name: "cave11",
         "button text": ["Go left", "Go straight", "Go right"],
-        "button functions": [caveNav(T), caveNav(13), caveNav(6)],
+        "button functions": [() => caveNav(10), () => caveNav(8), () => caveNav(4)],
         text: "Strange carvings depict an ancient story of dragons and treasure.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       },
       {
         name: "cave13",
         "button text": ["Re-enter cave", "Return to town", "Return to town"],
-        "button functions": [caveNav(11), goTown, goTown],
+        "button functions": [() => caveNav(7), goTown, goTown],
         text: "You see the light of day and leave the cave safely.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       },
       {
         name: "cave15",
         "button text": ["Re-enter cave", "Return to town", "Return to town"],
-        "button functions": [caveNav(6), goTown, goTown],
+        "button functions": [() => caveNav(4), goTown, goTown],
         text: "You see the light of day and leave the cave safely.",
-      //   img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
+      },
+      {
+        name: "treasure",
+        "button text": ["Open chest", "Duh, open chest", "Continue Exploring"],
+        "button functions": [openTreasureChest, openTreasureChest, () => caveNav(8)],
+        text: "You've found a treasure chest! What would you like to do?",
+        img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
       }
-]
+];
 
 // initialize buttons
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
+
+function caveNav(index) {
+    update(caveLocations[index]);
+    locationImage.src = caveLocations[index].img;
+    locationImage.style.display = "block";
+}
 
 function update(location) {
   monsterStats.style.display = "none";
@@ -282,9 +295,12 @@ function goStore() {
 }
 
 function goCave() {
-  update(locations[2]);
-  locationImage.src = locations[2].img;
-  locationImage.style.display = "block";
+//   update(locations[2]);
+//   locationImage.src = locations[2].img;
+//   locationImage.style.display = "block";
+    update(caveLocations[0]);
+    locationImage.src = caveLocations[0].img;
+    locationImage.style.display = "block";
 }
 
 function buyHealth() {
