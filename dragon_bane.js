@@ -498,7 +498,13 @@ function openTreasureChest() {
         const healthGained = Math.floor(Math.random() * 25) + 1;
         health -= healthGained;
         healthText.innerText = health;
-        text.innerHTML = "It was a trap! You lose " + healthGained + " health.";
+        text.innerHTML = "It was a trap! You lose " + healthGained + " health, AND ARE POISONED!";
+
+        // Change the variable once every second (1000 milliseconds) 
+        const intervalId = setInterval(poisonDamage, 1250); 
+        // To stop the interval after a certain time (e.g., 10 seconds), you can use clearInterval 
+        setTimeout(() => clearInterval(intervalId), 12500);
+
         if (health <= 0) {
           lose();
         }
@@ -512,6 +518,11 @@ function openTreasureChest() {
       weapon.innerText = weapons[currentWeapon].name;
     }
     openedChest ++;
+}
+
+function poisonDamage(){
+  health -= 1;
+  healthText.innerText = health;
 }
 
 function lose() {
