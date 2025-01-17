@@ -27,8 +27,10 @@ const weapons = [
     { name: 'Paper Clip', power: 6 },
     { name: 'Stick', power: 10 },
     { name: 'Dagger', power: 26 },
+    { name: 'Nunchucks', power: 34 },
     { name: 'Cross Bow', power: 40 },
     { name: 'Sword', power: 50 },
+    { name: 'Halberd', power: 60 },
     { name: 'Battle Axe', power: 76 },
     { name: 'Lightsaber', power: 100 }
   ];
@@ -51,6 +53,12 @@ const monsters = [
       level: 4,
       health: 30,
       img: "https://i.ibb.co/ZhVw7B8/Worm.jpg"
+    },
+    {
+      name: "Shrek",
+      level: 5,
+      health: 35,
+      img: "https://i.ibb.co/16RD2Z9/14.jpg"
     },
     {
       name: "Mutant Rooster",
@@ -95,22 +103,16 @@ const monsters = [
       img: "https://i.ibb.co/bJtZ58k/11.jpg"
     },
     {
+      name: "Stay Puft Marshmallow Man",
+      level: 14,
+      health: 110,
+      img: "https://i.ibb.co/ZVvM9Jr/15.jpg"
+    },
+    {
       name: "Bloodshade",
       level: 15,
       health: 120,
       img: "https://i.ibb.co/k3tG09B/Bloodshade.jpg" 
-    },
-    {
-      name: "Shrek",
-      level: 14,
-      health: 120,
-      img: "https://i.ibb.co/16RD2Z9/14.jpg"
-    },
-    {
-      name: "Stay Puft Marshmallow Man",
-      level: 18,
-      health: 200,
-      img: "https://i.ibb.co/ZVvM9Jr/15.jpg"
     },
     {
       name: "Dragon",
