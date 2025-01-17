@@ -494,11 +494,13 @@ function openTreasureChest() {
         gold += goldGained;
         goldText.innerText = gold;
         text.innerHTML = "You find " + goldGained + " gold!";
+        locationImage.src = "https://i.ibb.co/pjytYk0/Untitled-2000-x-1000-px.jpg";
     } else if (chance < 80) {
         const healthGained = Math.floor(Math.random() * 25) + 1;
         health -= healthGained;
         healthText.innerText = health;
         text.innerHTML = "It was a trap! You lose " + healthGained + " health.";
+        locationImage.src = "https://i.ibb.co/NSPk48W/26.jpg";
         if (health <= 0) {
           lose();
         }
@@ -510,6 +512,7 @@ function openTreasureChest() {
       text.innerText = "YOU FOUND A NEW WEAPON!!!";
       inventory.push(" " + newWeapon);
       weapon.innerText = weapons[currentWeapon].name;
+      locationImage.src = "https://i.ibb.co/CsqJqYh/Untitled-2000-x-1000-px-1.jpg";
     }
     openedChest ++;
 }
