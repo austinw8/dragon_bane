@@ -13,6 +13,7 @@ const text = document.querySelector("#text");
 const xpText = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
+const currentWeaponText = document.querySelector("#weapon");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
@@ -397,6 +398,7 @@ function attack() {
   if (Math.random() <= .05 && inventory.length !== 1) {
     text.innerText += " Your " + inventory.pop() + " breaks.";
     currentWeapon--;
+    currentWeaponText.innerText = weapons[currentWeapon].name;
   }
 }
 
@@ -462,6 +464,7 @@ function restart() {
   gold = 50;
   currentWeapon = 0;
   inventory = ["stick"];
+  currentWeaponText.innerText = weapons[currentWeapon].name;
   goldText.innerText = gold;
   healthText.innerText = health;
   xpText.innerText = xp;
