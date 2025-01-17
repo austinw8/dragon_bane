@@ -140,7 +140,7 @@ const locations = [
   {
     //location 1
     name: "store",
-    "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Return to town square"],
+    "button text": ["Buy healing potion (10 gold)", "Buy weapon (30 gold)", "Return to town square"],
     "button functions": [buyHealth, buyWeapon, goTown],
     text: "You enter the store.",
     img: "https://www.dndspeak.com/wp-content/uploads/2021/04/Shop-1.jpg"
