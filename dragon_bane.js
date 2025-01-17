@@ -439,19 +439,12 @@ function openTreasureChest() {
         health -= healthGained;
         healthText.innerText = health;
         text.innerHTML = "It was a trap! You lose " + healthGained + " health.";
+        if (health <= 0) {
+          lose();
+        }
     } else {
         fightMimic();
     }
-
-    if (health <= 0) {
-        lose();
-      } else if (monsterHealth <= 0) {
-        if (fighting === 13) {
-          winGame();
-        } else {
-          defeatMonster();
-        }
-      }
 }
 
 function lose() {
