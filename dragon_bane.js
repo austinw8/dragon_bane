@@ -503,6 +503,13 @@ function openTreasureChest() {
         healthText.innerText = health;
         text.innerHTML = "It was a trap! You lose " + healthGained + " health.";
         locationImage.src = "https://i.ibb.co/NSPk48W/26.jpg";
+        text.innerHTML = "It was a trap! You lose " + healthGained + " health, AND ARE POISONED!";
+
+        // Change the variable once every second (1000 milliseconds) 
+        const intervalId = setInterval(poisonDamage, 1250); 
+        // To stop the interval after a certain time (e.g., 10 seconds), you can use clearInterval 
+        setTimeout(() => clearInterval(intervalId), 12500);
+
         if (health <= 0) {
           lose();
         }
@@ -517,6 +524,11 @@ function openTreasureChest() {
       locationImage.src = "https://i.ibb.co/CsqJqYh/Untitled-2000-x-1000-px-1.jpg";
     }
     openedChest ++;
+}
+
+function poisonDamage(){
+  health -= 1;
+  healthText.innerText = health;
 }
 
 function lose() {
