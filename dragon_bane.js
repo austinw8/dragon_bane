@@ -27,8 +27,10 @@ const weapons = [
     { name: 'Paper Clip', power: 6 },
     { name: 'Stick', power: 10 },
     { name: 'Dagger', power: 26 },
+    { name: 'Nunchucks', power: 34 },
     { name: 'Cross Bow', power: 40 },
     { name: 'Sword', power: 50 },
+    { name: 'Halberd', power: 60 },
     { name: 'Battle Axe', power: 76 },
     { name: 'Lightsaber', power: 100 }
   ];
@@ -51,6 +53,12 @@ const monsters = [
       level: 4,
       health: 30,
       img: "https://i.ibb.co/ZhVw7B8/Worm.jpg"
+    },
+    {
+      name: "Shrek",
+      level: 5,
+      health: 35,
+      img: "https://i.ibb.co/16RD2Z9/14.jpg"
     },
     {
       name: "Mutant Rooster",
@@ -95,22 +103,16 @@ const monsters = [
       img: "https://i.ibb.co/bJtZ58k/11.jpg"
     },
     {
+      name: "Stay Puft Marshmallow Man",
+      level: 14,
+      health: 110,
+      img: "https://i.ibb.co/ZVvM9Jr/15.jpg"
+    },
+    {
       name: "Bloodshade",
       level: 15,
       health: 120,
       img: "https://i.ibb.co/k3tG09B/Bloodshade.jpg" 
-    },
-    {
-      name: "Shrek",
-      level: 14,
-      health: 120,
-      img: "https://i.ibb.co/16RD2Z9/14.jpg"
-    },
-    {
-      name: "Stay Puft Marshmallow Man",
-      level: 18,
-      health: 200,
-      img: "https://i.ibb.co/ZVvM9Jr/15.jpg"
     },
     {
       name: "Dragon",
@@ -138,7 +140,7 @@ const locations = [
   {
     //location 1
     name: "store",
-    "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Return to town square"],
+    "button text": ["Buy healing potion (10 gold)", "Buy weapon (30 gold)", "Return to town square"],
     "button functions": [buyHealth, buyWeapon, goTown],
     text: "You enter the store.",
     img: "https://www.dndspeak.com/wp-content/uploads/2021/04/Shop-1.jpg"
@@ -494,11 +496,13 @@ function openTreasureChest() {
         gold += goldGained;
         goldText.innerText = gold;
         text.innerHTML = "You find " + goldGained + " gold!";
+        locationImage.src = "https://i.ibb.co/pjytYk0/Untitled-2000-x-1000-px.jpg";
     } else if (chance < 80) {
         const healthGained = Math.floor(Math.random() * 25) + 1;
         health -= healthGained;
         healthText.innerText = health;
         text.innerHTML = "It was a trap! You lose " + healthGained + " health.";
+        locationImage.src = "https://i.ibb.co/NSPk48W/26.jpg";
         if (health <= 0) {
           lose();
         }
@@ -510,6 +514,7 @@ function openTreasureChest() {
       text.innerText = "YOU FOUND A NEW WEAPON!!!";
       inventory.push(" " + newWeapon);
       weapon.innerText = weapons[currentWeapon].name;
+      locationImage.src = "https://i.ibb.co/CsqJqYh/Untitled-2000-x-1000-px-1.jpg";
     }
     openedChest ++;
 }
