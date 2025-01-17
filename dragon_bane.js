@@ -10,6 +10,8 @@ let openedChest = 0;
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
+const button4 = document.querySelector("#button4");
+const button5 = document.querySelector("#button5");
 const text = document.querySelector("#text");
 const xpText = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
@@ -159,8 +161,8 @@ const locations = [
   {
     //location 4
     name: "kill monster",
-    "button text": ["Continue exploring cave", "Return to town square"],
-    "button functions": [() => caveNav(Math.floor(Math.random() * 7) + 1), goTown],
+    "button text": ["Continue exploring cave"],
+    "button functions": [() => caveNav(Math.floor(Math.random() * 7) + 1)],
     text: "You've defeated the monster! You gain experience points and gold."
   },
   {
@@ -183,6 +185,12 @@ const locations = [
     "button text": ["2", "8", "Go to town square?"],
     "button functions": [pickTwo, pickEight, goTown],
     text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
+  },
+  {
+    name: "fight dragon",
+    "button text": ["Attack", "Dodge", "Run"],
+    "button functions": [attack, dodge, goTown],
+    text: "You are fighting a monster."
   }
 ];
 
@@ -190,8 +198,8 @@ const caveLocations = [
     {
       //location 0
       name: "cave1",
-      "button text": ["Go left", "Go straight", "Go right"],
-      "button functions": [() => caveNav(1), () => caveNav(3), () => caveNav(2)],
+      "button text": ["Go left", "Go straight", "Go right", "Return to town"],
+      "button functions": [() => caveNav(1), () => caveNav(3), () => caveNav(2), goTown],
       text: "The cave entrance is dimly lit, with three dark tunnels ahead",
       img: "https://i.ibb.co/wzx7KdZ/Cave1.jpg"
     },
@@ -283,17 +291,20 @@ function caveNav(index) {
 
 function update(location) {
   monsterStats.style.display = "none";
-  button1.innerText = location["button text"][0];
-  button2.innerText = location["button text"][1];
-  if (location["button text"].length < 3) {
-    button3.style.display = "none"; // Hide the third button
-  } else {
-    button3.style.display = "inline-block"; // Show the third button
-    button3.innerText = location["button text"][2];
-    button3.onclick = location["button functions"][2];
-  }
-  button1.onclick = location["button functions"][0];
-  button2.onclick = location["button functions"][1];
+  const buttons = [button1, button2, button3, button4, button5];
+
+  // Loop through the buttons and update based on location["button text"]
+  buttons.forEach((button, index) => {
+    if (index < location["button text"].length) {
+      button.style.display = "inline-block"; // Show the button
+      button.innerText = location["button text"][index]; // Set button text
+      button.onclick = location["button functions"][index]; // Set button functionality
+    } else {
+      button.style.display = "none"; // Hide unused buttons
+    }
+  });
+
+  // Update location text
   text.innerHTML = location.text;
 }
 
@@ -301,6 +312,10 @@ function goTown() {
   update(locations[0]);
   locationImage.src = locations[0].img;
   locationImage.style.display = "block";
+
+  // Hide the last two buttons
+  button4.style.display = "none";
+  button5.style.display = "none";
 }
 
 function goStore() {
@@ -381,14 +396,16 @@ function fightDragon() {
 }
 
 function goFight() {
-  update(locations[3]);
-  monsterStats.style.display = "block";
+  // Check if the monster is a dragon
+  const locationIndex = monsters[fighting].name.toLowerCase() === "dragon" ? 8 : 3;
+  // Update the location based on the monster type
+  update(locations[locationIndex]);  monsterStats.style.display = "block";
   locationImage.style.display = "none";
   if (fighting === 14) {
     text.innerHTML = "Oh no! It was a mimic disguised as a treasure chest!";
-} else {
+  } else {
     text.innerHTML = "You are fighting a monster.";
-}
+  }
   monsterHealth = monsters[fighting].health;
   monsterName.innerText = monsters[fighting].name;
   monsterHealthText.innerText = monsterHealth;

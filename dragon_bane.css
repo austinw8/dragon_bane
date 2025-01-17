@@ -81,3 +81,7 @@ img {
   width: 446px;
   object-fit: cover;
 }
+
+#button4, #button5 {
+  display: none;
+}
