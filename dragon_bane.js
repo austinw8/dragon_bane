@@ -466,7 +466,6 @@ function defeatMonster() {
 }
 
 function openTreasureChest() {
-
     const chance = Math.floor(Math.random() * 100) + 1;
 
     if (openedChest > 0){
@@ -476,7 +475,7 @@ function openTreasureChest() {
         gold += goldGained;
         goldText.innerText = gold;
         text.innerHTML = "You find " + goldGained + " gold!";
-    } else if (chance <80) {
+    } else if (chance < 80) {
         const healthGained = Math.floor(Math.random() * 25) + 1;
         health -= healthGained;
         healthText.innerText = health;
@@ -484,10 +483,15 @@ function openTreasureChest() {
         if (health <= 0) {
           lose();
         }
-    } else {
-        fightMimic();
+    } else if (chance < 95) {
+      fightMimic();
+    }else {
+      currentWeapon++;
+      let newWeapon = weapons[currentWeapon].name;
+      text.innerText = "YOU FOUND A NEW WEAPON!!!";
+      inventory.push(" " + newWeapon);
+      weapon.innerText = weapons[currentWeapon].name;
     }
-
     openedChest ++;
 }
 
