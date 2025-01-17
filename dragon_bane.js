@@ -5,6 +5,7 @@ let currentWeapon = 0;
 let fighting;
 let monsterHealth;
 let inventory = ["Paper Clip"];
+let openedChest = 0;
 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
@@ -125,6 +126,7 @@ const monsters = [
 
 const locations = [
   {
+    //location 0
     name: "town square",
     "button text": ["Go to store", "Visit cave", "Fight dragon"],
     "button functions": [goStore, goCave, fightDragon],
@@ -132,6 +134,7 @@ const locations = [
     img: "https://thenerdd.com/wp-content/uploads/2021/05/1.jpg?w=1200"
   },
   {
+    //location 1
     name: "store",
     "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Return to town square"],
     "button functions": [buyHealth, buyWeapon, goTown],
@@ -139,6 +142,7 @@ const locations = [
     img: "https://www.dndspeak.com/wp-content/uploads/2021/04/Shop-1.jpg"
   },
   {
+    //location 2
     name: "cave",
     "button text": ["Fight monster", "Find treasure chest", "Return to town square"],
     "button functions": [fightRandomMonster, openTreasureChest, goTown],
@@ -146,30 +150,35 @@ const locations = [
     img: "https://t3.ftcdn.net/jpg/06/41/30/92/360_F_641309220_IfhzYNjdPVrVl4WIMSfxX2p0Yg4Jfnnn.jpg"
   },
   {
+    //location 3
     name: "fight",
     "button text": ["Attack", "Dodge", "Run"],
     "button functions": [attack, dodge, () => caveNav(Math.floor(Math.random() * 7) + 1)],
     text: "You are fighting a monster."
   },
   {
+    //location 4
     name: "kill monster",
     "button text": ["Continue exploring cave", "Return to town square"],
     "button functions": [() => caveNav(Math.floor(Math.random() * 7) + 1), goTown],
     text: "You've defeated the monster! You gain experience points and gold."
   },
   {
+    //location 5
     name: "lose",
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
     "button functions": [restart, restart, restart],
     text: "You die. &#x2620;"
   },
   { 
+    //location 6
     name: "win", 
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], 
     "button functions": [restart, restart, restart], 
     text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;" 
   },
   {
+    //location 7
     name: "easter egg",
     "button text": ["2", "8", "Go to town square?"],
     "button functions": [pickTwo, pickEight, goTown],
@@ -179,6 +188,7 @@ const locations = [
 
 const caveLocations = [
     {
+      //location 0
       name: "cave1",
       "button text": ["Go left", "Go straight", "Go right"],
       "button functions": [() => caveNav(1), () => caveNav(3), () => caveNav(2)],
@@ -186,6 +196,7 @@ const caveLocations = [
       img: "https://i.ibb.co/wzx7KdZ/Cave1.jpg"
     },
     {
+      //location 1
         name: "cave2",
         "button text": ["Go left", "Go straight", "Go right"],
         "button functions": [() => caveNav(9), fightRandomMonster, () => caveNav(4)],
@@ -193,6 +204,7 @@ const caveLocations = [
         img: "https://i.ibb.co/6DB6TnK/Cave2.jpg"
       },
       {
+        //location 2
         name: "cave3",
         "button text": ["Go left", "Go straight", "Go right"],
         "button functions": [() => caveNav(5), () => caveNav(6), fightRandomMonster],
@@ -200,6 +212,7 @@ const caveLocations = [
         img: "https://i.ibb.co/HhmkDM9/Cave-Misc1.jpg"
       },
       {
+        //location 3
         name: "cave4",
         "button text": ["Go left", "Go straight", "Go right"],
         "button functions": [() => caveNav(7), () => caveNav(8), () => caveNav(9)],
@@ -207,6 +220,7 @@ const caveLocations = [
         img: "https://i.ibb.co/kQPBHzF/Cave4.jpg"
       },
       {
+        //location 4
         name: "cave6",
         "button text": ["Go left", "Go straight", "Go right"],
         "button functions": [fightRandomMonster, () => caveNav(8), () => caveNav(9)],
@@ -214,6 +228,7 @@ const caveLocations = [
         img: "https://i.ibb.co/TrzFHxS/Cave-Misc2.jpg"
       },
       {
+        //location 5
         name: "cave8",
         "button text": ["Go left", "Go straight", "Go right"],
         "button functions": [() => caveNav(0), fightRandomMonster, () => caveNav(9)],
@@ -221,6 +236,7 @@ const caveLocations = [
         img: "https://i.ibb.co/jMvjF8p/Cave-Misc3.jpg"
       },
       {
+        //location 6
         name: "cave10",
         "button text": ["Go left", "Go straight", "Go right"],
         "button functions": [() => caveNav(4), () => caveNav(8), () => caveNav(9)],
@@ -228,6 +244,7 @@ const caveLocations = [
         img: "https://i.ibb.co/kgCNqW6/Cave10.jpg"
       },
       {
+        //location 7
         name: "cave11",
         "button text": ["Go left", "Go straight", "Go right"],
         "button functions": [() => caveNav(9), () => caveNav(8), () => caveNav(4)],
@@ -235,6 +252,7 @@ const caveLocations = [
         img: "https://i.ibb.co/86gdwF2/Cave11.jpg"
       },
       {
+        //location 8
         name: "caveExit",
         "button text": ["Re-enter cave", "Return to town", "Return to town"],
         "button functions": [() => caveNav(Math.floor(Math.random() * 7) + 1), goTown, goTown],
@@ -242,6 +260,7 @@ const caveLocations = [
         img: "https://i.ibb.co/mXXkTpK/24.jpg"
       },
       {
+        //location 9
         name: "treasure",
         "button text": ["Open chest", "Turn back", "Continue Exploring"],
         "button functions": [openTreasureChest, () => caveNav(Math.floor(Math.random() * 7) + 1), () => caveNav(Math.floor(Math.random() * 7) + 1)],
@@ -259,6 +278,7 @@ function caveNav(index) {
     update(caveLocations[index]);
     locationImage.src = caveLocations[index].img;
     locationImage.style.display = "block";
+    openedChest = 0;
 }
 
 function update(location) {
@@ -429,9 +449,12 @@ function defeatMonster() {
 }
 
 function openTreasureChest() {
+
     const chance = Math.floor(Math.random() * 100) + 1;
 
-    if (chance <= 50) {
+    if (openedChest > 0){
+      text.innerHTML = "You've opened the chest already, it's empty!";
+    } else if (chance <= 50) {
         const goldGained = Math.floor(Math.random() * 25) + 1;
         gold += goldGained;
         goldText.innerText = gold;
@@ -447,6 +470,8 @@ function openTreasureChest() {
     } else {
         fightMimic();
     }
+
+    openedChest ++;
 }
 
 function lose() {
