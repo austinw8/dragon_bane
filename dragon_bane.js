@@ -24,13 +24,13 @@ const imgElement = document.querySelector("#monsterImage");
 const locationImage = document.querySelector("#locationImage");
 
 const weapons = [
-    { name: 'Paper Clip', power: 5 },
+    { name: 'Paper Clip', power: 6 },
     { name: 'Stick', power: 10 },
-    { name: 'Dagger', power: 30 },
-    { name: 'Cross Bow', power: 50 },
-    { name: 'Sword', power: 75 },
-    { name: 'Battle Axe', power: 100 },
-    { name: 'Lightsaber', power: 200 }
+    { name: 'Dagger', power: 26 },
+    { name: 'Cross Bow', power: 40 },
+    { name: 'Sword', power: 50 },
+    { name: 'Battle Axe', power: 76 },
+    { name: 'Lightsaber', power: 100 }
   ];
 
 const monsters = [
@@ -293,6 +293,12 @@ function update(location) {
   monsterStats.style.display = "none";
   const buttons = [button1, button2, button3, button4, button5];
 
+    // // Reset button texts and visibility
+    // buttons.forEach(button => {
+    //   button.innerText = ""; // Clear text
+    //   button.style.display = "none"; // Hide all buttons initially
+    // });
+
   // Loop through the buttons and update based on location["button text"]
   buttons.forEach((button, index) => {
     if (index < location["button text"].length) {
@@ -303,6 +309,13 @@ function update(location) {
       button.style.display = "none"; // Hide unused buttons
     }
   });
+
+  // Update the "Buy Weapon" button only when you're in the store
+  if (location.name === "store" && currentWeapon < weapons.length - 1) {
+    const nextWeapon = weapons[currentWeapon + 1]; // Get the next weapon
+    const nextWeaponCost = nextWeapon.power * 2.5; // Calculate the cost based on weapon power
+    button2.innerText = "Buy " + nextWeapon.name + " (" + nextWeaponCost + " gold)"; // Update the button text with weapon name and cost
+  }
 
   // Update location text
   text.innerHTML = location.text;
@@ -324,9 +337,6 @@ function goStore() {
 }
 
 function goCave() {
-//   update(locations[2]);
-//   locationImage.src = locations[2].img;
-//   locationImage.style.display = "block";
     update(caveLocations[0]);
     locationImage.src = caveLocations[0].img;
     locationImage.style.display = "block";
@@ -345,8 +355,13 @@ function buyHealth() {
 
 function buyWeapon() {
   if (currentWeapon < weapons.length - 1) {
-    if (gold >= 30) {
-      gold -= 30;
+
+    // Calculate the next weapon's cost
+    const nextWeapon = weapons[currentWeapon + 1];
+    const nextWeaponCost = nextWeapon.power * 2.5;
+
+    if (gold >= nextWeaponCost) {
+      gold -= nextWeaponCost;
       currentWeapon++;
       goldText.innerText = gold;
       let newWeapon = weapons[currentWeapon].name;
@@ -354,8 +369,12 @@ function buyWeapon() {
       inventory.push(" " + newWeapon);
       text.innerText += " In your inventory you have: " + inventory;
       weapon.innerText = weapons[currentWeapon].name;
+
+      // Update the button text immediately after buying the weapon
+      update(locations[1]); // Call update to refresh the button text and other UI elements
+
     } else {
-      text.innerText = "You do not have enough gold to buy a weapon.";
+      text.innerText = "You do not have enough gold to buy a new weapon.";
     }
   } else {
     text.innerText = "You already have the most powerful weapon!";
