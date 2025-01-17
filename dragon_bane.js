@@ -176,6 +176,12 @@ const locations = [
     "button text": ["2", "8", "Go to town square?"],
     "button functions": [pickTwo, pickEight, goTown],
     text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
+  },
+  {
+    name: "fight dragon",
+    "button text": ["Attack", "Dodge", "Run"],
+    "button functions": [attack, dodge, goTown],
+    text: "You are fighting a monster."
   }
 ];
 
@@ -265,8 +271,6 @@ function caveNav(index) {
 
 function update(location) {
   monsterStats.style.display = "none";
-
-  // List of all buttons
   const buttons = [button1, button2, button3, button4, button5];
 
   // Loop through the buttons and update based on location["button text"]
@@ -372,14 +376,16 @@ function fightDragon() {
 }
 
 function goFight() {
-  update(locations[3]);
-  monsterStats.style.display = "block";
+  // Check if the monster is a dragon
+  const locationIndex = monsters[fighting].name.toLowerCase() === "dragon" ? 8 : 3;
+  // Update the location based on the monster type
+  update(locations[locationIndex]);  monsterStats.style.display = "block";
   locationImage.style.display = "none";
   if (fighting === 14) {
     text.innerHTML = "Oh no! It was a mimic disguised as a treasure chest!";
-} else {
+  } else {
     text.innerHTML = "You are fighting a monster.";
-}
+  }
   monsterHealth = monsters[fighting].health;
   monsterName.innerText = monsters[fighting].name;
   monsterHealthText.innerText = monsterHealth;
