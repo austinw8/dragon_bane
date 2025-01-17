@@ -264,8 +264,8 @@ const caveLocations = [
       {
         //location 8
         name: "caveExit",
-        "button text": ["Re-enter cave", "Return to town", "Return to town"],
-        "button functions": [() => caveNav(Math.floor(Math.random() * 7) + 1), goTown, goTown],
+        "button text": ["Re-enter cave", "Return to town"],
+        "button functions": [() => caveNav(Math.floor(Math.random() * 7) + 1), goTown],
         text: "You see the light of day and leave the cave safely.",
         img: "https://i.ibb.co/mXXkTpK/24.jpg"
       },
