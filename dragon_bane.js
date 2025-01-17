@@ -316,6 +316,7 @@ function attack() {
   if (Math.random() <= .05 && inventory.length !== 1) {
     text.innerText += " Your " + inventory.pop() + " breaks.";
     currentWeapon--;
+    currentWeaponText.innerText = weapons[currentWeapon].name;
   }
 }
 
